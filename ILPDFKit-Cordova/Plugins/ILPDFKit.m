@@ -93,6 +93,10 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"ILPDFKitFormValueChangedNotitfication" object:nil];
 }
 
+- (void)close:(CDVInvokedUrlCommand *)command {
+    [self onClose:nil];
+}
+
 - (void)onClose:(id)sender {
     if (self.isAnyFormChanged && self.askToSaveBeforeClose) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:NSLocalizedString(@"You have made changes to the form that have not been saved. Do you really want to quit?", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"No", nil) otherButtonTitles:NSLocalizedString(@"Yes", nil), nil];

@@ -17,7 +17,6 @@
 @property (nonatomic, assign) BOOL isAnyFormChanged;
 @property (nonatomic, assign) BOOL askToSaveBeforeClose;
 @property (nonatomic, assign) BOOL backgroundMode;
-@property (nonatomic, assign) BOOL closeOnSave;
 
 @end
 
@@ -49,7 +48,6 @@
         
         self.askToSaveBeforeClose = [options[@"askToSaveBeforeClose"] boolValue];
         self.isAnyFormChanged = NO;
-        self.closeOnSae = [options[@"closeOnSave"] boolValue];
         
         self.backgroundMode = [options[@"backgroundMode"] boolValue];
         
@@ -116,10 +114,6 @@
         if(success) {
             [self.pdfViewController.document writeToFile:self.fileNameToSave];
             [self sendEventWithJSON:@{@"type" : @"savePdf", @"success" : @YES, @"savedPath" : [[self documentsDirectory] stringByAppendingPathComponent:self.fileNameToSave]}];
-        
-            if (self.closeOnSave){
-                [self.pdfViewController dismissViewControllerAnimated:YES completion:nil];
-            }
         }
         else {
             [self sendEventWithJSON:@{@"type" : @"savePdf", @"success" : @NO}];
